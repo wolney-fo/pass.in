@@ -1,4 +1,6 @@
 import { EventsRepository } from "../repositories/events-repository";
+import { generateSlug } from "../utils/generate-slug";
+import { DuplicatedResourceError } from "./errors/duplicated-resource-error";
 
 interface CreateEventUseCaseRequest {
   title: string;
@@ -18,10 +20,18 @@ export class CreateEventUseCase {
     details,
     maximumAttendees,
   }: CreateEventUseCaseRequest): Promise<CreateEventUseCaseResponse> {
+    const slug = generateSlug(title);
+
+    const eventWithSameSlug = this.eventsRepository.findBySlug(slug);
+
+    if (eventWithSameSlug !== null) {
+      throw new DuplicatedResourceError();
+    }
+
     const event = await this.eventsRepository.create({
       title,
       details,
-      slug: new Date().toISOString(), // TODO: Generate slug
+      slug,
       maximumAttendees,
     });
 
