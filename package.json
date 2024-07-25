@@ -1,0 +1,27 @@
+{
+  "name": "2024-2-unite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "9.0.1",
+    "@prisma/client": "5.17.0",
+    "dotenv": "16.4.5",
+    "fastify": "4.28.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.12",
+    "prisma": "5.17.0",
+    "tsx": "4.16.2",
+    "typescript": "5.5.4"
+  }
+}
