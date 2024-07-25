@@ -2,7 +2,7 @@ import cors from "@fastify/cors";
 import fastify from "fastify";
 import { ZodError } from "zod";
 import { env } from "./env";
-import { appRoutes } from "./http/routes";
+import { eventsRoutes } from "./http/controllers/events/routes";
 
 export const app = fastify();
 
@@ -10,7 +10,7 @@ app.register(cors, {
   origin: "*",
 });
 
-app.register(appRoutes);
+app.register(eventsRoutes);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
