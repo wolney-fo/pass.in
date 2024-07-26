@@ -22,7 +22,7 @@ This tool allows organizers to register an event and open a public registration 
 ### Functional Requirements
 
 - [x] The organizer must be able to register an event.
-- [ ] The organizer must be able to view event details.
+- [x] The organizer must be able to view event details.
 - [ ] The organizer must be able to view the list of participants.
 - [x] The participant must be able to register for an event.
 - [ ] The participant must be able to view their registration badge.
@@ -31,7 +31,7 @@ This tool allows organizers to register an event and open a public registration 
 ### Business Rules
 
 - [x] A participant can only register for an event once.
-- [ ] A participant can only register for events with available slots.
+- [x] A participant can only register for events with available slots.
 - [ ] A participant can only check-in at an event once.
 
 ### Non-Functional Requirements

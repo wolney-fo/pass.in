@@ -11,6 +11,7 @@ import { createEventRoute } from "./routes/events/create";
 import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
 import { registerForEventRoute } from "./routes/attendees/register-for-event";
 import { MaximumAvailableResourcesBeenReached } from "./use-cases/errors/maximum-available-resources-been-reached";
+import { getEventRoute } from "./routes/events/get";
 
 export const app = fastify();
 
@@ -21,7 +22,11 @@ app.register(cors, {
   origin: "*",
 });
 
+// Events
 app.register(createEventRoute);
+app.register(getEventRoute);
+
+// Attendees
 app.register(registerForEventRoute);
 
 app.setErrorHandler((error, _, reply) => {
@@ -41,11 +46,9 @@ app.setErrorHandler((error, _, reply) => {
   }
 
   if (error instanceof MaximumAvailableResourcesBeenReached) {
-    return reply
-      .status(429)
-      .send({
-        message: "Maximum number of available resources has been reached.",
-      });
+    return reply.status(429).send({
+      message: "Maximum number of available resources has been reached.",
+    });
   }
 
   return reply.status(500).send({ message: "Internal server error." });
