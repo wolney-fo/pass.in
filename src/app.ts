@@ -10,6 +10,7 @@ import { env } from "./env";
 import { createEventRoute } from "./routes/events/create";
 import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
 import { registerForEventRoute } from "./routes/attendees/register-for-event";
+import { MaximumAvailableResourcesBeenReached } from "./use-cases/errors/maximum-available-resources-been-reached";
 
 export const app = fastify();
 
@@ -37,6 +38,14 @@ app.setErrorHandler((error, _, reply) => {
 
   if (error instanceof DuplicatedResourceError) {
     return reply.status(409).send({ message: "Duplicated resource error." });
+  }
+
+  if (error instanceof MaximumAvailableResourcesBeenReached) {
+    return reply
+      .status(429)
+      .send({
+        message: "Maximum number of available resources has been reached.",
+      });
   }
 
   return reply.status(500).send({ message: "Internal server error." });
