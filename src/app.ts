@@ -1,17 +1,25 @@
 import cors from "@fastify/cors";
 import fastify from "fastify";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import { env } from "./env";
-import { eventsRoutes } from "./http/controllers/events/routes";
+import { createEventRoute } from "./routes/events/create";
 import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
 
 export const app = fastify();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 app.register(cors, {
   origin: "*",
 });
 
-app.register(eventsRoutes);
+app.register(createEventRoute);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

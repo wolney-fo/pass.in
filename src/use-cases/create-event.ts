@@ -1,6 +1,7 @@
 import { EventsRepository } from "../repositories/events-repository";
 import { generateSlug } from "../utils/generate-slug";
 import { DuplicatedResourceError } from "./errors/duplicated-resource-error";
+import { Event } from "@prisma/client";
 
 interface CreateEventUseCaseRequest {
   title: string;
@@ -9,7 +10,7 @@ interface CreateEventUseCaseRequest {
 }
 
 interface CreateEventUseCaseResponse {
-  eventId: string;
+  event: Event;
 }
 
 export class CreateEventUseCase {
@@ -35,6 +36,6 @@ export class CreateEventUseCase {
       maximumAttendees,
     });
 
-    return { eventId: event.id };
+    return { event };
   }
 }
