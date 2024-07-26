@@ -2,8 +2,10 @@ import { PrismaAttendeesRepository } from "../../repositories/prisma/prisma-atte
 import { GetAttendeeBadgeUseCase } from "../get-attendee-badge";
 
 export function makeGetAttendeeBadgeUseCase() {
-  const attendeesRepository = new PrismaAttendeesRepository()
-  const getAttendeeBadgeUseCase = new GetAttendeeBadgeUseCase(attendeesRepository);
+  const attendeesRepository = new PrismaAttendeesRepository();
+  const getAttendeeBadgeUseCase = new GetAttendeeBadgeUseCase(
+    attendeesRepository
+  );
 
   return getAttendeeBadgeUseCase;
 }

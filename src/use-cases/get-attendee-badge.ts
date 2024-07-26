@@ -3,12 +3,14 @@ import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 interface GetAttendeeBadgeUseCaseRequest {
   attendeeId: number;
+  baseUrl: string;
 }
 
 interface GetAttendeeBadgeUseCaseResponse {
   name: string;
   email: string;
   eventTitle: string;
+  checkInURL: string;
 }
 
 export class GetAttendeeBadgeUseCase {
@@ -16,6 +18,7 @@ export class GetAttendeeBadgeUseCase {
 
   async execute({
     attendeeId,
+    baseUrl,
   }: GetAttendeeBadgeUseCaseRequest): Promise<GetAttendeeBadgeUseCaseResponse> {
     const attendee = await this.attendeesRepository.findByIdBadgeData(
       attendeeId
@@ -25,10 +28,13 @@ export class GetAttendeeBadgeUseCase {
       throw new ResourceNotFoundError();
     }
 
+    const checkInURL = new URL(`/attendees/${attendeeId}/check-in`, baseUrl);
+
     return {
       name: attendee.name,
       email: attendee.email,
       eventTitle: attendee.eventTitle,
+      checkInURL: checkInURL.toString(),
     };
   }
 }
