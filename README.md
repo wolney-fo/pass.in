@@ -26,13 +26,13 @@ This tool allows organizers to register an event and open a public registration 
 - [ ] The organizer must be able to view the list of participants.
 - [x] The participant must be able to register for an event.
 - [x] The participant must be able to view their registration badge.
-- [ ] The participant must be able to check-in at the event.
+- [x] The participant must be able to check-in at the event.
 
 ### Business Rules
 
 - [x] A participant can only register for an event once.
 - [x] A participant can only register for events with available slots.
-- [ ] A participant can only check-in at an event once.
+- [x] A participant can only check-in at an event once.
 
 ### Non-Functional Requirements
 
