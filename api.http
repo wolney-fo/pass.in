@@ -6,3 +6,13 @@ Content-Type: application/json
   "details": "Primeira NLW de 2024",
   "maximumAttendees": 100
 }
+
+###
+
+POST http://localhost:3333/events/0bc7691b-582a-4733-906d-6b537cb57e58/attendees
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}

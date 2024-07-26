@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 import { env } from "./env";
 import { createEventRoute } from "./routes/events/create";
 import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
+import { registerForEventRoute } from "./routes/attendees/register-for-event";
 
 export const app = fastify();
 
@@ -20,6 +21,7 @@ app.register(cors, {
 });
 
 app.register(createEventRoute);
+app.register(registerForEventRoute);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
