@@ -22,7 +22,7 @@ export class CreateEventUseCase {
   }: CreateEventUseCaseRequest): Promise<CreateEventUseCaseResponse> {
     const slug = generateSlug(title);
 
-    const eventWithSameSlug = this.eventsRepository.findBySlug(slug);
+    const eventWithSameSlug = await this.eventsRepository.findBySlug(slug);
 
     if (eventWithSameSlug !== null) {
       throw new DuplicatedResourceError();
