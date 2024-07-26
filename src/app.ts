@@ -2,16 +2,16 @@ import cors from "@fastify/cors";
 import fastify from "fastify";
 import {
   serializerCompiler,
-  validatorCompiler,
-  ZodTypeProvider,
+  validatorCompiler
 } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import { env } from "./env";
-import { createEventRoute } from "./routes/events/create";
-import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
+import { getAttendeeBadgeRoute } from "./routes/attendees/get-badge";
 import { registerForEventRoute } from "./routes/attendees/register-for-event";
-import { MaximumAvailableResourcesBeenReached } from "./use-cases/errors/maximum-available-resources-been-reached";
+import { createEventRoute } from "./routes/events/create";
 import { getEventRoute } from "./routes/events/get";
+import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
+import { MaximumAvailableResourcesBeenReached } from "./use-cases/errors/maximum-available-resources-been-reached";
 
 export const app = fastify();
 
@@ -28,6 +28,7 @@ app.register(getEventRoute);
 
 // Attendees
 app.register(registerForEventRoute);
+app.register(getAttendeeBadgeRoute);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
