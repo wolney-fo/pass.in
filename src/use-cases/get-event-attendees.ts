@@ -4,6 +4,7 @@ import { AttendeeWithCheckIn } from "../@types/attendees-with-check-in";
 
 interface GetEventAttendeesUseCaseRequest {
   eventId: string;
+  query?: string | null;
   pageIndex: number;
 }
 
@@ -12,18 +13,18 @@ export class GetEventAttendeesUseCase {
 
   async execute({
     eventId,
+    query,
     pageIndex,
   }: GetEventAttendeesUseCaseRequest): Promise<AttendeeWithCheckIn[]> {
     const attendees = await this.attendeesRepository.getAttendees(
       eventId,
-      pageIndex
+      pageIndex,
+      query ?? undefined
     );
 
     if (!attendees) {
       throw new ResourceNotFoundError();
     }
-
-    console.log(attendees);
 
     return attendees;
   }

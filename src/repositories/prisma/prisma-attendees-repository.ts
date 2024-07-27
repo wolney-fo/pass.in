@@ -63,7 +63,7 @@ export class PrismaAttendeesRepository implements AttendeesRepository {
     return amountOfAttendeesForEvent;
   }
 
-  async getAttendees(eventId: string, pageIndex: number) {
+  async getAttendees(eventId: string, pageIndex: number, query?: string) {
     const attendees = await prisma.attendee.findMany({
       select: {
         id: true,
@@ -76,11 +76,21 @@ export class PrismaAttendeesRepository implements AttendeesRepository {
           },
         },
       },
-      where: {
-        eventId,
-      },
+      where: query
+        ? {
+            eventId,
+            name: {
+              contains: query,
+            },
+          }
+        : {
+            eventId,
+          },
       take: 10,
       skip: pageIndex * 10,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return attendees;

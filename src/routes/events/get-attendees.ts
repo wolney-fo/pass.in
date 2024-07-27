@@ -12,23 +12,35 @@ export async function getEventAttendeesRoute(app: FastifyInstance) {
           eventId: z.string().uuid(),
         }),
         querystring: z.object({
-          pageIndex: z.string().nullable().default("0").transform(Number),
+          query: z.string().nullish(),
+          pageIndex: z.string().nullish().default("0").transform(Number),
         }),
-        response: {},
+        response: {
+          200: z.object({
+            attendees: z.array(
+              z.object({
+                id: z.number(),
+                name: z.string(),
+                email: z.string().email(),
+                createdAt: z.date(),
+                checkedInAt: z.date().nullable(),
+              })
+            ),
+          }),
+        },
       },
     },
     async (request, reply) => {
       const { eventId } = request.params;
-      const { pageIndex } = request.query;
+      const { query, pageIndex } = request.query;
 
       const getEventAttendeesUseCase = makeGetEventAttendeesUseCase();
 
       const attendees = await getEventAttendeesUseCase.execute({
         eventId,
+        query,
         pageIndex,
       });
-
-      console.log(attendees);
 
       return reply.status(200).send({
         attendees: attendees.map((attendee) => {
@@ -37,7 +49,7 @@ export async function getEventAttendeesRoute(app: FastifyInstance) {
             name: attendee.name,
             email: attendee.email,
             createdAt: attendee.createdAt,
-            checkedInAt: attendee.checkIn?.createdAt,
+            checkedInAt: attendee.checkIn?.createdAt ?? null,
           };
         }),
       });

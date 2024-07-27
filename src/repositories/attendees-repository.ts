@@ -10,7 +10,8 @@ export interface AttendeesRepository {
   amountOfAttendeesForEvent(eventId: string): Promise<number>;
   getAttendees(
     eventId: string,
-    pageIndex: number
+    pageIndex: number,
+    query?: string
   ): Promise<AttendeeWithCheckIn[] | null>;
   create(data: Prisma.AttendeeUncheckedCreateInput): Promise<Attendee>;
 }
