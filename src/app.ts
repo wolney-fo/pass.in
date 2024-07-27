@@ -13,6 +13,7 @@ import { getEventRoute } from "./routes/events/get";
 import { DuplicatedResourceError } from "./use-cases/errors/duplicated-resource-error";
 import { MaximumAvailableResourcesBeenReached } from "./use-cases/errors/maximum-available-resources-been-reached";
 import { checkInRoute } from "./routes/check-ins/check-in";
+import { getEventAttendeesRoute } from "./routes/events/get-attendees";
 
 export const app = fastify();
 
@@ -26,6 +27,7 @@ app.register(cors, {
 // Events
 app.register(createEventRoute);
 app.register(getEventRoute);
+app.register(getEventAttendeesRoute);
 
 // Attendees
 app.register(registerForEventRoute);

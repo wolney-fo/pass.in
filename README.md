@@ -23,7 +23,7 @@ This tool allows organizers to register an event and open a public registration 
 
 - [x] The organizer must be able to register an event.
 - [x] The organizer must be able to view event details.
-- [ ] The organizer must be able to view the list of participants.
+- [x] The organizer must be able to view the list of participants.
 - [x] The participant must be able to register for an event.
 - [x] The participant must be able to view their registration badge.
 - [x] The participant must be able to check-in at the event.
