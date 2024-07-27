@@ -21,22 +21,22 @@ This tool allows organizers to register an event and open a public registration 
 
 ### Functional Requirements
 
-- [x] The organizer must be able to register an event.
-- [x] The organizer must be able to view event details.
-- [x] The organizer must be able to view the list of participants.
-- [x] The participant must be able to register for an event.
-- [x] The participant must be able to view their registration badge.
-- [x] The participant must be able to check-in at the event.
+- The organizer must be able to register an event.
+- The organizer must be able to view event details.
+- The organizer must be able to view the list of participants.
+- The participant must be able to register for an event.
+- The participant must be able to view their registration badge.
+- The participant must be able to check-in at the event.
 
 ### Business Rules
 
-- [x] A participant can only register for an event once.
-- [x] A participant can only register for events with available slots.
-- [x] A participant can only check-in at an event once.
+- A participant can only register for an event once.
+- A participant can only register for events with available slots.
+- A participant can only check-in at an event once.
 
 ### Non-Functional Requirements
 
-- [ ] Event check-in will be conducted via a QR code.
+- Event check-in will be conducted via a QR code.
 
 ## Installation
 
@@ -54,7 +54,11 @@ To install and run the application locally, follow these steps:
    ```sh
    npm install
    ```
-4. Run the application:
+4. Run migrations:
+   ```sh
+   npx prisma migrate dev
+   ```
+5. Run the application:
    ```sh
    npm run start:dev
    ```
