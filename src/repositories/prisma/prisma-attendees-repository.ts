@@ -63,6 +63,29 @@ export class PrismaAttendeesRepository implements AttendeesRepository {
     return amountOfAttendeesForEvent;
   }
 
+  async getAttendees(eventId: string, pageIndex: number) {
+    const attendees = await prisma.attendee.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        checkIn: {
+          select: {
+            createdAt: true,
+          },
+        },
+      },
+      where: {
+        eventId,
+      },
+      take: 10,
+      skip: pageIndex * 10,
+    });
+
+    return attendees;
+  }
+
   async create(data: Prisma.AttendeeUncheckedCreateInput) {
     const attendee = await prisma.attendee.create({
       data,
